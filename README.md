@@ -1,4 +1,4 @@
 # questionnairs
 
 questionnairs validation = completed <br>
-questionnair->validation = not completed till
+questionnair > question -> validation = not completed till
