@@ -2,8 +2,8 @@
 @section('style')
     {{--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">--}}
     {{--<link href="{{ URL::asset('css/jquery.dataTables.min.css') }}" />--}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css" rel="stylesheet">
+    <link href="{{ URL::asset('css/material.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/dataTables.material.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/buttons.dataTables.min.css') }}" rel="stylesheet" />
     <style>
         .mdl-grid{
@@ -76,8 +76,8 @@
 @section('script')
     {{--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>--}}
     {{--<script src="{{ URL::asset('js/jquery.dataTables.min.js') }}"></script>--}}
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js"></script>
+    <script src="{{ URL::asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('js/dataTables.material.min.js') }}"></script>
 
     <script>
 
@@ -96,15 +96,25 @@
                 columns: [
                     { "data": "id" },
                     { "data": "name" },
-                    { "data": "questions_count" },
+                    {
+                        "data": "questions_count",
+                        "searchable": false
+                    },
                     { "data": "duration" },
-                    { "data": "resumeable" },
-                    { "data": "published" },
+                    {
+                        "data": "resumeable",
+                        "searchable": false
+                    },
+                    {
+                        "data": "published",
+                        "searchable": false
+                    },
                     {
                         "data": "action",
                         "className":      'td-actions text-right',
                         "orderable":      false,
-                        "defaultContent": ''
+                        "defaultContent": '',
+                        "searchable": false
                     }
                 ],
                 "order": [[1, 'asc']]
@@ -112,7 +122,7 @@
 
             $('.dataTable tfoot th').each( function () {
                 var title = $(this).text();
-                if (title.trim() !== 'Detail' && title.trim() !== 'Action'){
+                if (title.trim() !== 'Number Of Questions' && title.trim() !== 'Action' && title.trim() !== 'Resumeable' && title.trim() !== 'Published' ){
                     $(this).html( '<input type="text" placeholder="Search '+title.trim()+'" />' );
                 }
             } );

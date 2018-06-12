@@ -30,6 +30,18 @@ class Questionnair extends Model
     public function questions(){
         return $this->hasMany(Question::class,'questionnair_id','id');
     }
+    public function text_questions(){
+        return $this->questions()->whereType(TEXT_TYPE_QUESTION)->whereNotNull('question')->get();
+    }
+    public function mcqs_questions(){
+        return $this->questions()->where('type','!=',TEXT_TYPE_QUESTION)->has('choices', '>=', 2)->get();
+    }
+    public function mcq_sin_ans_questions(){
+        return $this->questions()->whereType(MCSO_TYPE_QUESTION)->get();
+    }
+    public function mcq_mul_ans_questions(){
+        return $this->questions()->whereType(MCMO_TYPE_QUESTION)->get();
+    }
     public function getDurationAttribute(){
         if (isset(self::$duration_type[$this->getOriginal('duration_type')])){
             return $this->getOriginal('duration') .' '. self::$duration_type[$this->getOriginal('duration_type')];
@@ -38,6 +50,7 @@ class Questionnair extends Model
         }
     }
     public function getResumeableAttribute(){
+
         if (isset(self::$resumeable[$this->getOriginal('resumeable')])){
             return self::$resumeable[$this->getOriginal('resumeable')];
         }else{

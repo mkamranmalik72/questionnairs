@@ -112,9 +112,11 @@ class QuestionnairController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Questionnair $questionnair)
     {
-        //
+        $text_qs = $questionnair->text_questions();
+        $mcqs_qs = $questionnair->mcqs_questions();
+        return view('questionnair.question_show',compact('text_qs','mcqs_qs'));
     }
 
     /**
